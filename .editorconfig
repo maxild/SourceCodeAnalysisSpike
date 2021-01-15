@@ -42,28 +42,27 @@ indent_size = 2
 end_of_line = lf
 indent_size = 2
 
-
 [*.cs]
 ### Dotnet code style ###
 
 ### Format rules
 
 # Sort System.* using directives alphabetically, and place them before other using directives.
-dotnet_sort_system_directives_first = true:warning
+dotnet_sort_system_directives_first = true
 # Do not place a blank line between using directive groups.
-dotnet_separate_import_directive_groups = false:warning
+dotnet_separate_import_directive_groups = false
 
 ### CSharp code style ###
 
 
 ### Compiler warnings ###
 
-dotnet_diagnostic.CS0219.severity = warning
+; dotnet_diagnostic.CS0219.severity = warning
 
 ### CodeStyle Severity ###
 
 # IDE0005: Using directive is unnecessary.
-dotnet_diagnostic.IDE0005.severity = none
+dotnet_diagnostic.IDE0005.severity = warning
 
 # All formatting options have IDE0055 rule id and title Fix formatting.
 # IDE0055: Fix formatting
