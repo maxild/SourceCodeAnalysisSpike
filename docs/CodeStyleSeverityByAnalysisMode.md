@@ -21,7 +21,8 @@ their repo and edit/maintain as appropriate. Here is the [recommended severity c
 | AllDisabledByDefault | Conservative or opt-in mode, where all CodeStyle rules are disabled by default. You can selectively opt into individual rules to enable them in IDE and/or build. |
 
 
-The below table shows the differences between the profiles (`Default` have been left out because all severities are empty):
+The below table (based on `microsoft.codeanalysis.csharp.codestyle.3.9.0-4.21064.16`)
+shows the differences between the profiles (`Default` have been left out because all severities are empty):
 
 TODO: Maybe All/None could be left out as well...Only Minimum/Recommended are interesting!
 
