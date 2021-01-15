@@ -1,0 +1,71 @@
+root = true
+
+# a. without this .editorconfig
+# b. with this .editorconfig
+#
+# Build fails in step 3, but not in step 5.
+#     dotnet_diagnostic.CS0219.severity = warning
+# takes precedence over /warnaserror+ passed to csc.exe from -p:TreatWarningsAsErrors=true
+
+# Core settings
+
+# Don't use tabs for indentation.
+[*]
+indent_style = space
+# (Please don't specify an indent_size here; that has too many unintended consequences.)
+
+# Code files
+[*.cs]
+indent_size = 4
+insert_final_newline = true
+charset = utf-8-bom
+
+# XML project files
+[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
+indent_size = 2
+
+# XML config files
+[*.{props,targets,ruleset,config,nuspec,resx,vsixmanifest,vsct}]
+indent_size = 2
+
+# JSON files
+[*.json]
+indent_size = 2
+
+# Powershell files
+[*.ps1]
+indent_size = 2
+
+# Shell script files
+[*.sh]
+end_of_line = lf
+indent_size = 2
+
+
+### Dotnet code style settings ###
+
+
+### CSharp code style settings ###
+
+
+### Configuration for IDE code style by diagnostic IDs ###
+#### Diagnostic configuration ####
+[*.cs]
+
+; TODO: You can specify the following entries to escalate all code style rules in
+;       the package to default to a warning and that should enable all of them for build.
+# Default severity for all IDE code style rules with category 'Style'
+;dotnet_analyzer_diagnostic.category-Style.severity = warning
+
+# Default severity for all IDE code quality rules with category 'CodeQuality'
+;dotnet_analyzer_diagnostic.category-CodeQuality.severity = warning
+; TODO: You can then selectively downgrade specific rules to a lower severity (none/silent/suggestion) as per your preference.
+; TODO: Every IDExxx rule or CAxxxx rule must be explicitly configured below to have severity none, silent or suggestion.
+
+dotnet_diagnostic.CS0219.severity = warning
+
+dotnet_diagnostic.IDE0059.severity = warning
+dotnet_diagnostic.IDE0060.severity = warning
+
+
+### Configuration for FxCop analyzers executed on this repo ###
