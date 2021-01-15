@@ -1,0 +1,68 @@
+# Top level entry required to mark this as a global AnalyzerConfig file
+is_global = true
+
+dotnet_analyzer_diagnostic.category-Style.severity = suggestion
+
+##########################################################################################################################
+### NOTE: All severity settings are duplicated in global analyzer file (https://github.com/dotnet/roslyn/issues/43051) ###
+##########################################################################################################################
+
+dotnet_analyzer_diagnostic.category-Style.severity = suggestion
+
+### Compiler warnings ###
+
+;dotnet_diagnostic.CS0219.severity = warning
+
+### CodeStyle Severity ###
+
+# IDE0003: Remove this qualification (Name can be simplified)
+# NOTE: not enforced on build
+dotnet_diagnostic.IDE0003.severity = warning
+
+# IDE0004: Remove Unnecessary Cast
+# NOTE: not enforced on build
+dotnet_diagnostic.IDE0004.severity = warning
+
+# IDE0005: Using directive is unnecessary.
+dotnet_diagnostic.IDE0005.severity = warning
+
+# IDE0007: Use implicit type
+dotnet_diagnostic.IDE0007.severity = warning
+
+# IDE0008: Use explicit type
+dotnet_diagnostic.IDE0008.severity = warning
+
+# IDE0009: Add this qualification (Name can be simplified)
+# NOTE: not enforced on build
+dotnet_diagnostic.IDE0009.severity = warning
+
+# IDE0010: Add missing cases to switch statement
+# NOTE: not enforced on build
+dotnet_diagnostic.IDE0010.severity = warning
+
+# IDE0011: Add braces
+dotnet_diagnostic.IDE0011.severity = warning
+
+# IDE0049: Use language keywords instead of framework type names for type references
+# NOTE: not enforced on build
+dotnet_diagnostic.ID0049.severity = warning
+
+# All formatting options have IDE0055 rule id and title Fix formatting.
+# IDE0055: Fix formatting
+dotnet_diagnostic.IDE0055.severity = warning
+
+; TODO: You can specify the following entries to escalate all code style rules in
+;       the package to default to a warning and that should enable all of them for build.
+# Default severity for all IDE code style rules with category 'Style'
+;dotnet_analyzer_diagnostic.category-Style.severity = warning
+
+# Default severity for all IDE code quality rules with category 'CodeQuality'
+;dotnet_analyzer_diagnostic.category-CodeQuality.severity = warning
+; TODO: You can then selectively downgrade specific rules to a lower severity (none/silent/suggestion) as per your preference.
+; TODO: Every IDExxx rule or CAxxxx rule must be explicitly configured below to have severity none, silent or suggestion.
+
+;dotnet_diagnostic.IDE0059.severity = warning
+;dotnet_diagnostic.IDE0060.severity = warning#
+
+;dotnet_diagnostic.AD0001.severity = none
+

@@ -22,3 +22,31 @@ Program.cs(10,17): error IDE0059: Unnecessary assignment of a value to 'unused'
 Program.cs(6,35): error IDE0060: Remove unused parameter 'args'
   SourceCodeAnalysisSpike -> ./src/bin/Debug/net5.0/SourceCodeAnalysisSpike.dll
 ```
+
+## Some IDxxx disgnostrics are never checked
+
+See https://github.com/dotnet/roslyn/blob/master/src/Analyzers/Core/Analyzers/EnforceOnBuildValues.cs
+
+The following disgnostics are never checked via EnforceOnBuild=EnforceCodeStyleInBuild=true prop:
+
+- IDE0001: Simplify names (Allow enforcing simplify names and related diagnostics on build once we validate their performance charactericstics.)
+- IDE0002: Simplify member access
+- IDE0003: Remove this qualification
+- IDE0004: Remove Unnecessary Cast (It does work for simple cases --- Move to 'Recommended' OR 'HighlyRecommended' bucket once performance problems are addressed: https://github.com/dotnet/roslyn/issues/43304)
+- IDE0009: Add this qualification
+- IDE0010: Add missing cases (to switch)
+- IDE0035: Remove unreachable code
+- IDE0037: Use inferred member name
+- IDE0041: Use 'is null' check
+- IDE0048: Add (required) parentheses for clarity
+- IDE0049: Use language keywords instead of framework type names for type references
+- IDE0058: Expression value is never used
+- IDE0064: Make readonly (struct) fields writable
+- IDE0066: Convert switch statement to expression
+- IDE0072: Add missing cases (populate switch expression)
+- IDE0079: Remove unnecessary suppression
+
+## C# Coding Style (BCL code styles)
+
+The when_multiline option was developed to support the [C# Coding Style](https://github.com/dotnet/runtime/blob/master/docs/coding-guidelines/coding-style.md) used for .NET Core and it's runtime libraries, along with most related open source projects (e.g. dotnet/roslyn).
+

@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <!-- .NET code style analysis is disabled, by default -->
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <!-- <ItemGroup>
