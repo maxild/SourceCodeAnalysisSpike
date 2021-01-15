@@ -1,3 +1,4 @@
+# Suppress: EC102 EC103
 root = true
 
 # a. without this .editorconfig
@@ -7,7 +8,7 @@ root = true
 #     dotnet_diagnostic.CS0219.severity = warning
 # takes precedence over /warnaserror+ passed to csc.exe from -p:TreatWarningsAsErrors=true
 
-# Core settings
+### Core settings ###
 
 # Don't use tabs for indentation.
 [*]
@@ -42,15 +43,31 @@ end_of_line = lf
 indent_size = 2
 
 
-### Dotnet code style settings ###
-
-
-### CSharp code style settings ###
-
-
-### Configuration for IDE code style by diagnostic IDs ###
-#### Diagnostic configuration ####
 [*.cs]
+### Dotnet code style ###
+
+### Format rules
+
+# Sort System.* using directives alphabetically, and place them before other using directives.
+dotnet_sort_system_directives_first = true:warning
+# Do not place a blank line between using directive groups.
+dotnet_separate_import_directive_groups = false:warning
+
+### CSharp code style ###
+
+
+### Compiler warnings ###
+
+dotnet_diagnostic.CS0219.severity = warning
+
+### CodeStyle Severity ###
+
+# IDE0005: Using directive is unnecessary.
+dotnet_diagnostic.IDE0005.severity = none
+
+# All formatting options have IDE0055 rule id and title Fix formatting.
+# IDE0055: Fix formatting
+dotnet_diagnostic.IDE0055.severity = warning
 
 ; TODO: You can specify the following entries to escalate all code style rules in
 ;       the package to default to a warning and that should enable all of them for build.
@@ -62,10 +79,5 @@ indent_size = 2
 ; TODO: You can then selectively downgrade specific rules to a lower severity (none/silent/suggestion) as per your preference.
 ; TODO: Every IDExxx rule or CAxxxx rule must be explicitly configured below to have severity none, silent or suggestion.
 
-dotnet_diagnostic.CS0219.severity = warning
-
-dotnet_diagnostic.IDE0059.severity = warning
-dotnet_diagnostic.IDE0060.severity = warning
-
-
-### Configuration for FxCop analyzers executed on this repo ###
+;dotnet_diagnostic.IDE0059.severity = warning
+;dotnet_diagnostic.IDE0060.severity = warning
