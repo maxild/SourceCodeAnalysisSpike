@@ -8,9 +8,9 @@ This feature would need to be baked into the SDK.
 The below SDK MSBuild properties and their values will be implemented via generating
 and embedding different well-known and recommended configuration files into the SDK.
 
-Users that prefer [explicit configuration files checked into their repo](todo) can copy
-over these configuration files with an entry per-rule directly to the root of
-their repo and edit/maintain as appropriate. Here is the [recommended severity configurations](todo).
+Users that prefer explicit configuration files checked into their repo can copy
+over these [configuration files](https://github.com/maxild/SourceCodeAnalysisSpike/tree/master/sdk-analyzers/microsoft.codeanalysis.csharp.codestyle.3.9.0-4.21064.16/build/config) with an entry per-rule directly to the root of
+their repo and edit/maintain as appropriate. Here is the [recommended severity configurations](https://github.com/maxild/SourceCodeAnalysisSpike/blob/master/sdk-analyzers/microsoft.codeanalysis.csharp.codestyle.3.9.0-4.21064.16/build/config/AnalysisLevelStyle_Recommended.editorconfig).
 
 | Value | Meaning |
 | --- | --- |

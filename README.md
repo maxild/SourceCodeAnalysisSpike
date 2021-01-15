@@ -1,4 +1,4 @@
-#EditorConfig based configuration of .NET 5+ sdk-built-in analyzers (code style/quality)
+# EditorConfig based configuration of .NET 5+ sdk-built-in analyzers (code style/quality)
 
 The following issues track this effort
 
@@ -11,7 +11,7 @@ https://github.com/dotnet/roslyn/issues/43051#issuecomment-758862927
 
 Build on the commandline with
 
-```bash
+```
 $ dotnet msbuild -t:rebuild -p:TreatWarningsAsErrors=true -warnaserror ./SourceCodeAnalysisSpike.sln
 
 Microsoft (R) Build Engine version 16.8.3+39993bd9d for .NET
