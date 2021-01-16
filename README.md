@@ -32,18 +32,9 @@ The following disgnostics are never checked via EnforceOnBuild=EnforceCodeStyleI
 - IDE0001: Simplify names (Allow enforcing simplify names and related diagnostics on build once we validate their performance charactericstics.)
 - IDE0002: Simplify member access
 - IDE0003: Remove this qualification
-- IDE0004: Remove Unnecessary Cast (It does work for simple cases --- Move to 'Recommended' OR 'HighlyRecommended' bucket once performance problems are addressed: https://github.com/dotnet/roslyn/issues/43304)
 - IDE0009: Add this qualification
-- IDE0010: Add missing cases (to switch)
 - IDE0035: Remove unreachable code
-- IDE0037: Use inferred member name
-- IDE0041: Use 'is null' check
-- IDE0048: Add (required) parentheses for clarity
 - IDE0049: Use language keywords instead of framework type names for type references
-- IDE0058: Expression value is never used
-- IDE0064: Make readonly (struct) fields writable
-- IDE0066: Convert switch statement to expression
-- IDE0072: Add missing cases (populate switch expression)
 - IDE0079: Remove unnecessary suppression
 
 ## C# Coding Style (BCL code styles)
