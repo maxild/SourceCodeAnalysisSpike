@@ -1,4 +1,4 @@
-# Suppress: EC102 EC103 EC104
+﻿# Suppress: EC102 EC103 EC104
 root = true
 
 # a. without this .editorconfig
@@ -46,6 +46,10 @@ indent_size = 2
 
 ### Formatting rules ###
 
+# NOTE: Formatting options do not support severity. Thi is illegal:
+#      csharp_new_line_before_else = true:warning
+# csharp_new_line_before_else does not support severity.
+
 # Sort System.* using directives alphabetically, and place them before other using directives.
 dotnet_sort_system_directives_first = true
 # Do not place a blank line between using directive groups.
@@ -54,9 +58,6 @@ dotnet_separate_import_directive_groups = false
 ## Newline options (https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/formatting-rules#new-line-options)
 # braces on a *new line* for the all code elements ("Allman" style).
 csharp_new_line_before_open_brace                                             = all
-# braces on the *same line* for the all code elements ("Allman" style).
-# "K&R" style
-;csharp_new_line_before_open_brace                                             = none
 # else, catch, finally statements on a new line.
 csharp_new_line_before_else                                                   = true
 csharp_new_line_before_catch                                                  = true
@@ -104,62 +105,150 @@ csharp_space_between_square_brackets                                          = 
 csharp_preserve_single_line_statements                                        = true
 csharp_preserve_single_line_blocks                                            = true
 
+### Naming rules ###
+
+# IMPORTANT: The order in which naming rules are defined in an EditorConfig file doesn't matter.
+#            The naming rules are automatically ordered according to the definition of the rules
+#            themselves (see https://github.com/dotnet/roslyn/pull/36366).
+#            The EditorConfig Language Service extension can analyze an EditorConfig
+#            file and report cases where the rule ordering in the file is different to what the
+#            compiler will use at run time (see https://github.com/madskristensen/EditorConfigLanguage/pull/71
+#            and https://github.com/dotnet/roslyn/pull/36366#issuecomment-501479824).
+
+## Symbol group: dotnet_naming_symbols.<xxxxxxx>.<propName> = <propValue>
+# applicable_kinds ∈ {
+#    * (use this value to specify all symbols)
+#    namespace
+#    class
+#    struct
+#    interface
+#    enum
+#    property
+#    method
+#    field
+#    event
+#    delegate
+#    parameter
+#    type_parameter
+#    local
+#    local_function
+# }
+#
+# applicable_accessibilities ∈ {
+#    * (use this value to specify all accessibility levels)
+#    public
+#    internal (or friend)
+#    private
+#    protected
+#    protected_internal (or protected_friend)
+#    private_protected
+#    local (for symbols defined within a method)#
+# }
+#
+# required_modifiers ∈ {
+#    abstract (or must_inherit)
+#    async
+#    const
+#    readonly
+#    static (or shared)
+# }
+# NOTE: If your group has 'static' in the required_modifiers property,
+#       the group will also include 'const' symbols because they are implicitly static.
+#       However, if you don't want the static naming rule to apply to const symbols,
+#       you can create a new naming rule with a symbol group of const
+#
+#
+## Naming style: dotnet_naming_style.<xxxxxxx>.<propName> = <propValue>
+# capitalization ∈ {
+#    pascal_case
+#    camel_case
+#    first_word_upper
+#    all_upper
+#    all_lower
+# }
+# required_prefix (e.g. _, s_)
+# required_suffix
+# word_separator (e.g. _)
+
+# NOTE: For StyleCop Analyzers, we strip the prefixes m_, s_, t_, and _ until there are no more
+#       or the next step would leave an empty string. Then we apply the expected naming convention
+#       to the result. In combination with an appropriate set of naming convention rules in .editorconfig,
+#       this approach would cover everything from the table except cases where multiple letters need
+#       to change from uppercase to lowercase (https://github.com/dotnet/roslyn/issues/26556#issuecomment-385988580).
+
+# Defining the 'public_symbols_group' symbol group
+dotnet_naming_symbols.public_symbols_group.applicable_kinds = property,method,field,event,delegate
+dotnet_naming_symbols.public_symbols_group.applicable_accessibilities = public
+;dotnet_naming_symbols.public_symbols.required_modifiers = readonly
+
+# Defining the `first_word_upper_case_style` naming style
+dotnet_naming_style.first_word_upper_case_style.capitalization = pascal_case
+
+# NOTE: All naming rule properties (symbols, style, severity) are required for a rule to take effect.
+# TODO: Test that severity is required!!!!
+# Defining the `public_members_must_be_capitalized` naming rule, by setting the symbol group to the 'public symbols' symbol group,
+dotnet_naming_rule.public_members_must_be_capitalized.symbols = public_symbols_group
+# setting the naming style to the `first_word_upper_case_style` naming style,
+dotnet_naming_rule.public_members_must_be_capitalized.style = first_word_upper_case_style
+# and setting the severity.
+dotnet_naming_rule.public_members_must_be_capitalized.severity = suggestion
+
 ### Language rules ####
 
 # Avoid "this." if not necessary
 # IDE0003: Remove this qualification
 # IDE0003: Name can be simplified
 # NOTE: Cannot be enforced on build
-dotnet_style_qualification_for_field                                          = false:error
-dotnet_style_qualification_for_property                                       = false:error
-dotnet_style_qualification_for_method                                         = false:error
-dotnet_style_qualification_for_event                                          = false:error
+dotnet_style_qualification_for_field                                          = false:suggestion
+dotnet_style_qualification_for_property                                       = false:suggestion
+dotnet_style_qualification_for_method                                         = false:suggestion
+dotnet_style_qualification_for_event                                          = false:suggestion
 
 # Use language keywords instead of framework type names for type references and (static) member access
 # IDE0049: Name can be simplified
 # NOTE: Cannot be enforced on build
-dotnet_style_predefined_type_for_locals_parameters_members                    = true:error
-dotnet_style_predefined_type_for_member_access                                = true
+dotnet_style_predefined_type_for_locals_parameters_members                    = true:suggestion
+dotnet_style_predefined_type_for_member_access                                = true:suggestion
 
 ## expression-level preferences
 # Suggest more modern language features when available
-dotnet_style_object_initializer                                               = true : suggestion
-dotnet_style_collection_initializer                                           = true : suggestion
-dotnet_style_explicit_tuple_names = true
-dotnet_style_prefer_inferred_tuple_names = true
-dotnet_style_prefer_inferred_anonymous_type_member_names = true
-dotnet_style_prefer_auto_properties = true
-dotnet_style_prefer_conditional_expression_over_assignment = true
-dotnet_style_prefer_conditional_expression_over_return = true
-dotnet_style_prefer_compound_assignment = true
-dotnet_style_prefer_simplified_interpolation = true
-dotnet_style_prefer_simplified_boolean_expressions = true
-dotnet_style_coalesce_expression                                              = true : suggestion
-dotnet_style_null_propagation                                                 = true : suggestion
+dotnet_style_object_initializer                                               = true:suggestion
+dotnet_style_collection_initializer                                           = true:suggestion
+dotnet_style_explicit_tuple_names = true:suggestion
+dotnet_style_prefer_inferred_tuple_names = true:suggestion
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
+dotnet_style_prefer_auto_properties = true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = true:suggestion
+dotnet_style_prefer_conditional_expression_over_return = true:suggestion
+dotnet_style_prefer_compound_assignment = true:suggestion
+dotnet_style_prefer_simplified_interpolation = true:suggestion
+dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
+dotnet_style_coalesce_expression                                              = true:suggestion
+dotnet_style_null_propagation                                                 = true:suggestion
 
 ## Modifier preferences
 # IDE0044: Add readonly modifier
-dotnet_style_readonly_field = true
+dotnet_style_readonly_field = true:suggestion
 
 ## Parentheses preferences
 # IDE0047: Remove unnecessary parentheses
 # IDE0048: Add parentheses for clarity
 # NOTE: Cannot be enforced on build
 # TODO: I am a bit unsure if 'never_if_unnecessary' is better
-dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity
-dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity
-dotnet_style_parentheses_in_other_binary_operators = always_for_clarity
-dotnet_style_parentheses_in_other_operators = always_for_clarity
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_operators = always_for_clarity:suggestion
 
 ## Null-checking preferences
 # IDE0029: Use coalesce expression (non-nullable types)
 # IDE0030: Use coalesce expression (nullable types)
-dotnet_style_coalesce_expression = true
+dotnet_style_coalesce_expression = true:suggestion
 # IDE0031: Use null propagation
-dotnet_style_null_propagation = true
+dotnet_style_null_propagation = true:suggestion
 # IDE0041: Use is null check
 # NOTE: Cannot be enforced on build
-dotnet_style_prefer_is_null_check_over_reference_equality_method = true
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
 
 ## 'var' preferences
 # Prefer "var" only if apparent at same line (https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/ide0007-ide0008)
@@ -185,11 +274,11 @@ csharp_style_expression_bodied_operators                                      = 
 
 # Prefer property-like constructs to have an expression-body
 # IDE0025: Use expression body for properties
-csharp_style_expression_bodied_properties                                     = true:none
+csharp_style_expression_bodied_properties                                     = true:suggestion
 # IDE0026: Use expression body for indexers
-csharp_style_expression_bodied_indexers                                       = true:none
+csharp_style_expression_bodied_indexers                                       = true:suggestion
 # IDE0027: Use expression body for accessors (aka getters and setters)
-csharp_style_expression_bodied_accessors                                      = true:none
+csharp_style_expression_bodied_accessors                                      = true:suggestion
 
 # IDE0053: Use expression body for lambdas
 # NOTE: not enforced on build
@@ -199,38 +288,38 @@ csharp_style_expression_bodied_local_functions = false:error
 
 ## Pattern matching preferences
 # IDE0019: Use pattern matching to avoid as followed by a null check
-csharp_style_pattern_matching_over_as_with_null_check = true
+csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
 # IDE0020: Use pattern matching to avoid is check followed by a cast (with variable)
 # IDE0038: Use pattern matching to avoid is check followed by a cast (without variable)
-csharp_style_pattern_matching_over_is_with_cast_check = true
+csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
 # IDE0066: Use switch expression
-csharp_style_prefer_switch_expression = true
+csharp_style_prefer_switch_expression = true:suggestion
 # IDE0078: Use pattern matching
-csharp_style_prefer_pattern_matching = true
+csharp_style_prefer_pattern_matching = true:suggestion
 # IDE0083: Use pattern matching (not operator)
-csharp_style_prefer_not_pattern = true
+csharp_style_prefer_not_pattern = true:suggestion
 
 ## expression-level preferences
 # IDE0018: Inline variable declaration
-csharp_style_inlined_variable_declaration = true
+csharp_style_inlined_variable_declaration = true:suggestion
 # IDE0034: Simplify default expression
-csharp_prefer_simple_default_expression = true
+csharp_prefer_simple_default_expression = true:suggestion
 # IDE0039: Use local function instead of lambda
-csharp_style_pattern_local_over_anonymous_function = true
+csharp_style_pattern_local_over_anonymous_function = true:suggestion
 # IDE0042: Deconstruct variable declaration
-csharp_style_deconstructed_variable_declaration = true
+csharp_style_deconstructed_variable_declaration = true:suggestion
 # IDE0056: Use index operator
-csharp_style_prefer_index_operator = true
+csharp_style_prefer_index_operator = true:suggestion
 # IDE0057: Use range operator
-csharp_style_prefer_range_operator = true
+csharp_style_prefer_range_operator = true:suggestion
 # IDE0090: Use 'new(...)' (aka target-typed new expressions)
-csharp_style_implicit_object_creation_when_type_is_apparent = true
+csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
 
 ## Null-checking preferences
 # IDE0016: Use throw expression
-csharp_style_throw_expression = true
+csharp_style_throw_expression = true:suggestion
 # IDE1005: Use conditional delegate call
-csharp_style_conditional_delegate_call = true
+csharp_style_conditional_delegate_call = true:suggestion
 
 ## Code block preferences
 # Prefer curly braces even for one line of code (https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/ide0011#csharp_prefer_braces)
@@ -239,30 +328,61 @@ csharp_style_conditional_delegate_call = true
 #      Analyzer 'Microsoft.CodeAnalysis.CSharp.Diagnostics.AddBraces.CSharpAddBracesDiagnosticAnalyzer' threw an exception of type
 #      'System.ArgumentNullException' with message 'Value cannot be null)
 # IDE0011: Add braces
-csharp_prefer_braces = when_multiline:warning
+csharp_prefer_braces = when_multiline:suggestion
 # IDE0063: Use simple using statement
-csharp_prefer_simple_using_statement = true
+csharp_prefer_simple_using_statement = true:suggestion
 
 # IDE0065: using directive placement
-csharp_using_directive_placement = outside_namespace
+csharp_using_directive_placement = outside_namespace:suggestion
 
 # IDE0062: Make local function static
-csharp_prefer_static_local_function = true
+csharp_prefer_static_local_function = true:suggestion
 
 
 ### Unnecessary code rules ###
+
+
 # IDE0058: Remove unnecessary expression value
-csharp_style_unused_value_expression_statement_preference = discard_variable
+csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
 # IDE0059: Remove unnecessary value assignment
-csharp_style_unused_value_assignment_preference = discard_variable
+csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 
 
+### Severity settings ###
 
+# See https://github.com/dotnet/roslyn/issues/44201
+# 1. Command line compiler supports configuring severity of a specific diagnostic ID with the below editorconfig syntax
+# 2. The above severity syntax (where both option value and severity is configured on single line) is not recognized by the
+#    command line compiler and/or the analyzer driver, so the severity setting above is redundant when executing from an explicit command line build.
+# 3. Additionally, with the command line compiler optimization implemented in https://github.com/dotnet/roslyn/pull/43546,
+#    we no longer execute hidden/suggestion analyzers in command line builds, unless the user has explicitly specified the analyzer diagnostic ID
+#    as a warning or error with the dotnet_diagnostic.RuleID.severity = severity syntax.
+# 4. This essentially means that the only way to enforce an IDE code style rule on command line build from our CodeStyle NuGet
+#    package is by using the latter compiler recognized syntax.
+# 5. It is unknown when the (soon) deprecated syntax should be removed (https://github.com/dotnet/roslyn/issues/44201#issuecomment-761605479)
+# 6. Workaround I:
+#      i.  default all rules in the package to be warnings by default
+#      ii. selectively downgrade specific rules to a lower severity (none/silent/suggestion) as per your preference.
+#    Workaround II
+#      i. Use explicit (recommended) configuration of all IDExxx severity levels (below example)
+# 7. For both workarounds, all rules get turned on for build as warnings and once that is done, both the syntaxes
+#    for severity setting should work fine to change the severity or disable rules with subsequent editorconfig entries.
 
+; You can specify the following entries to escalate all code style rules in
+; the package to default to a warning and that should enable all of them for build.
+# Default severity for all IDE code style rules with category 'Style'
+;dotnet_analyzer_diagnostic.category-Style.severity = warning
+
+# Default severity for all IDE code quality rules with category 'CodeQuality'
+;dotnet_analyzer_diagnostic.category-CodeQuality.severity = warning
+; TODO: You can then selectively downgrade specific rules to a lower severity (none/silent/suggestion) as per your preference.
+; TODO: Every IDExxx rule or CAxxxx rule must be explicitly configured below to have severity none, silent or suggestion.
 
 ##########################################################################################################################
 ### NOTE: All severity settings are duplicated in global analyzer file (https://github.com/dotnet/roslyn/issues/43051) ###
 ##########################################################################################################################
+
+### Explicit (recommended) configuration ###
 
 dotnet_analyzer_diagnostic.category-Style.severity = suggestion
 
@@ -493,15 +613,8 @@ dotnet_diagnostic.IDE0110.severity = warning
 # IDE1005: Delegate invocation can be simplified.
 dotnet_diagnostic.IDE1005.severity = warning
 
-; TODO: You can specify the following entries to escalate all code style rules in
-;       the package to default to a warning and that should enable all of them for build.
-# Default severity for all IDE code style rules with category 'Style'
-;dotnet_analyzer_diagnostic.category-Style.severity = warning
-
-# Default severity for all IDE code quality rules with category 'CodeQuality'
-;dotnet_analyzer_diagnostic.category-CodeQuality.severity = warning
-; TODO: You can then selectively downgrade specific rules to a lower severity (none/silent/suggestion) as per your preference.
-; TODO: Every IDExxx rule or CAxxxx rule must be explicitly configured below to have severity none, silent or suggestion.
+# IDE1006: Naming rule violation
+dotnet_diagnostic.IDE1006.severity = warning
 
 ;dotnet_diagnostic.IDE0059.severity = warning
 ;dotnet_diagnostic.IDE0060.severity = warning#

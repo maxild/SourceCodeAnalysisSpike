@@ -18,7 +18,9 @@ namespace SourceCodeAnalysisSpike
             var name = "Morten Maxild";
 
 
+#pragma warning disable IDE0037 // Use inferred member name
             _ = (age: age, name: name);
+#pragma warning restore IDE0037 // Use inferred member name
 
             // TODO: Should give warning...
             // IDE0100: Remove unnecessary equality operator
@@ -110,10 +112,8 @@ namespace SourceCodeAnalysisSpike
 
             SayHello("Morten");
 
-#pragma warning disable IDE0058 // Expression value is never used
             var s = SayHelloTo(name => name);
             s = "Some other value";
-#pragma warning restore IDE0058 // Expression value is never used
 
 
             // TODO: IDE0059 does not work
@@ -196,7 +196,9 @@ namespace SourceCodeAnalysisSpike
     public class Person
     {
         // IDE0032: Use auto property
+#pragma warning disable IDE0032 // Use auto property
         private readonly string _name;
+#pragma warning restore IDE0032 // Use auto property
 
         public Person(string name)
         {
@@ -213,7 +215,9 @@ namespace SourceCodeAnalysisSpike
         }
 
         // IDE0032: Use auto property
+#pragma warning disable IDE0032 // Use auto property
         public string Name => _name;
+#pragma warning restore IDE0032 // Use auto property
     }
 
     internal class Point
@@ -260,7 +264,7 @@ namespace SourceCodeAnalysisSpike
 
         public MyStruct(int value) => Value = value;
 
-        public void Test()
+        public void TestAgain() // TODO: Name Violation
         {
             this =
                 new MyStruct(5);
@@ -271,7 +275,9 @@ namespace SourceCodeAnalysisSpike
 
     public readonly struct ComplexNumber
     {
+#pragma warning disable IDE0032 // Use auto property
         private readonly double _real;
+#pragma warning restore IDE0032 // Use auto property
 
         public static ComplexNumber operator +(ComplexNumber c1, ComplexNumber c2) =>
             new ComplexNumber(c1.Real + c2.Real, c1.Imaginary + c2.Imaginary);
@@ -282,13 +288,17 @@ namespace SourceCodeAnalysisSpike
             Imaginary = imaginary;
         }
 
+#pragma warning disable IDE0032 // Use auto property
         public double Real
         {
             get
             {
+#pragma warning disable IDE0025 // Use expression body for properties
                 return _real;
+#pragma warning restore IDE0025 // Use expression body for properties
             }
         }
+#pragma warning restore IDE0032 // Use auto property
 
         public double Imaginary { get; }
     }
