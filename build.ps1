@@ -1,3 +1,4 @@
 #!/usr/bin/env pwsh
 
-dotnet msbuild -t:rebuild -p:TreatWarningsAsErrors=true -warnaserror .\SourceCodeAnalysisSpike.sln
+dotnet restore ./SourceCodeAnalysisSpike.sln
+dotnet msbuild -t:rebuild -p:TreatWarningsAsErrors=true -warnaserror ./SourceCodeAnalysisSpike.sln
