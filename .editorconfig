@@ -42,14 +42,16 @@ charset = utf-8-bom
 
 # You can specify the following entries to escalate all code style rules in
 # the package to default to a warning and that should enable all of them for build.
-dotnet_analyzer_diagnostic.severity = warning
+;dotnet_analyzer_diagnostic.severity = warning
 # Default severity for all IDE code style rules with category 'Style'
-;dotnet_analyzer_diagnostic.category-Style.severity = warning
+dotnet_analyzer_diagnostic.category-Style.severity = warning
 # Default severity for all IDE code quality rules with category 'CodeQuality'
-;dotnet_analyzer_diagnostic.category-CodeQuality.severity = warning
+dotnet_analyzer_diagnostic.category-CodeQuality.severity = warning
 ; TODO: You can then selectively downgrade specific rules to a lower severity (none/silent/suggestion) as per your preference.
 ; TODO: Every IDExxx rule or CAxxxx rule must be explicitly configured below to have severity none, silent or suggestion.
 
+; testing (can be done via UX in vs2019)
+dotnet_diagnostic.CA1831.severity = suggestion
 
 # TODO: Merge .NET and C# rules!!!!
 

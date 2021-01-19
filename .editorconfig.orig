@@ -1,13 +1,6 @@
 ﻿# Suppress: EC102 EC103 EC104
 root = true
 
-# a. without this .editorconfig
-# b. with this .editorconfig
-#
-# Build fails in step 3, but not in step 5.
-#     dotnet_diagnostic.CS0219.severity = warning
-# takes precedence over /warnaserror+ passed to csc.exe from -p:TreatWarningsAsErrors=true
-
 ### Core settings ###
 
 # Don't use tabs for indentation.

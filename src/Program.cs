@@ -168,6 +168,22 @@ namespace SourceCodeAnalysisSpike
             }
         }
 
+        public void M(DateTime dateTime)
+        {
+            //  Starting in .NET 5 we will warn about this case with CS8073
+#pragma warning disable CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
+            if (dateTime == null)
+#pragma warning restore CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
+            {
+                return;
+            }
+        }
+
+        public void TestMethod(string str)
+        {
+            ReadOnlySpan<char> slice = str[1..3]; // CA1831 that is downgraded to suggestion in .editorconfig
+        }
+
     }
 
 #pragma warning disable IDE0040 // Add accessibility modifiers
@@ -301,5 +317,16 @@ namespace SourceCodeAnalysisSpike
 #pragma warning restore IDE0032 // Use auto property
 
         public double Imaginary { get; }
+    }
+
+    public class GenericSomething<T>
+    {
+        // CA1000: Do not declare static members on generic types? Cannot be set in .editorconfig via UI
+
+        public static GenericSomething<TAnother> Empty<TAnother>() => new GenericSomething<TAnother>(default);
+
+        public T? Name { get; }
+
+        public GenericSomething(T? name) => Name = name;
     }
 }
