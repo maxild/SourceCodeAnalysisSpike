@@ -6,6 +6,12 @@ using System.Globalization;
 
 namespace SourceCodeAnalysisSpike
 {
+    public struct Point
+    {
+        public double X;
+        public double Y;
+    }
+
     internal class Program
     {
         private static int Main()
@@ -56,7 +62,7 @@ namespace SourceCodeAnalysisSpike
 
             // pt3 is not Point2
 #pragma warning disable IDE0078 // Use pattern matching
-            _ = !(pt3 is Point);
+            _ = !(pt3 is Point2);
 #pragma warning restore IDE0078 // Use pattern matching
 
             Console.WriteLine(int.Parse("3", CultureInfo.InvariantCulture));
@@ -235,13 +241,13 @@ namespace SourceCodeAnalysisSpike
 #pragma warning restore IDE0032 // Use auto property
     }
 
-    internal class Point
+    internal class Point2
     {
         public int X { get; set; }
         public int Y { get; set; }
     }
 
-    internal class Point3 : Point
+    internal class Point3 : Point2
     {
         public int Z { get; set; }
     }
