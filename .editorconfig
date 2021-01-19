@@ -35,6 +35,11 @@ indent_size = 4
 insert_final_newline = true
 charset = utf-8-bom
 
+# Resources:
+# See https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference
+# See http://kent-boogaart.com/blog/editorconfig-reference-for-c-developers
+# See https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/language-rules?view=vs-2019
+
 #######################################################
 # Default Severity for all .NET Code Style rules below
 # https://docs.microsoft.com/dotnet/fundamentals/code-analysis/configuration-options#scope
@@ -53,12 +58,9 @@ dotnet_analyzer_diagnostic.category-CodeQuality.severity = warning
 ; testing (can be done via UX in vs2019)
 dotnet_diagnostic.CA1831.severity = suggestion
 
-# TODO: Merge .NET and C# rules!!!!
-
 #################################
 #### .NET Language rules     ####
 #################################
-# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/language-rules?view=vs-2019
 
 # NOTE: Language rules have prefix 'dotnet_style_<rulename>' and 'csharp_style_<rulename>'
 
@@ -109,8 +111,13 @@ dotnet_style_readonly_field = true:warning
 dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:warning
 dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:warning
 dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:warning
-# TODO: maybe change this setting
+# TODO: I am a bit unsure if 'never_if_unnecessary' is better
 dotnet_style_parentheses_in_other_operators = never_if_unnecessary:warning
+# TODO: I am a bit unsure if 'never_if_unnecessary' is better
+# dotnet_style_parentheses_in_arithmetic_binary_operators                      = never_if_unnecessary : silent
+# dotnet_style_parentheses_in_other_binary_operators                           = never_if_unnecessary : silent
+# dotnet_style_parentheses_in_other_operators                                  = never_if_unnecessary : silent
+# dotnet_style_parentheses_in_relational_binary_operators                      = never_if_unnecessary : silent
 
 ## Expression-level preferences (IDE0017, IDE0028, IDE0032, IDE0033, IDE0037, IDE0045, IDE0046, IDE0054, IDE0074, IDE0075)
 # https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/expression-level-preferences#net-expression-level-preferences
@@ -163,10 +170,9 @@ csharp_style_var_elsewhere = true:warning
 
 ## Expression-bodied members (IDE0021, IDE0022, IDE0023, IDE0024, IDE0025, IDE0026, IDE0027, IDE0053, IDE0061)
 # https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/expression-bodied-members
-# NOTE: Prefer method-like constructs to not have an expression-body
 
 # IDE0021:Use expression body for constructors
-csharp_style_expression_bodied_constructors = when_on_single_line:warning
+csharp_style_expression_bodied_constructors = false:warning
 # dotnet_diagnostic.IDE0021.severity = suggestion
 
 # IDE0022: Use expression body for methods
@@ -182,8 +188,6 @@ csharp_style_expression_bodied_operators = when_on_single_line:warning
 # IDE0061: Use expression body for local functions
 csharp_style_expression_bodied_local_functions = when_on_single_line:warning
 # dotnet_diagnostic.IDE0061.severity = suggestion
-
-# NOTE: Prefer property-like constructs to have an expression-body
 
 # IDE0025: Use expression body for properties
 csharp_style_expression_bodied_properties = true:warning
@@ -301,16 +305,18 @@ csharp_style_unused_value_assignment_preference = discard_variable:warning
 ##########################
 #### Formatting Rules ####
 ##########################
+# NOTE: All formatting options have rule ID IDE0055 and title 'Fix formatting'.
 
 # NOTE: formatting rules have prefix 'dotnet_<rulename>' and 'csharp_<rulename>'
-# NOTE: All formatting options have rule ID IDE0055 and title 'Fix formatting'.
 # NOTE: Formatting options do not support severity. This is illegal:
 #      csharp_new_line_before_else = true:warning
 # csharp_new_line_before_else does not support severity.
 
-# Organize usings
+## Organize usings
+# Sort System.* using directives alphabetically, and place them before other using directives.
+dotnet_sort_system_directives_first = true
+# Do not place a blank line between using directive groups.
 dotnet_separate_import_directive_groups = false
-dotnet_sort_system_directives_first = false
 
 # New line preferences
 csharp_new_line_before_catch = true
@@ -331,19 +337,17 @@ csharp_indent_switch_labels = true
 
 # Space preferences
 csharp_space_after_cast = false
+csharp_space_before_colon_in_inheritance_clause = true
 csharp_space_after_colon_in_inheritance_clause = true
+csharp_space_before_comma = false
 csharp_space_after_comma = true
+csharp_space_before_dot = false
 csharp_space_after_dot = false
 csharp_space_after_keywords_in_control_flow_statements = true
 csharp_space_after_semicolon_in_for_statement = true
+csharp_space_before_semicolon_in_for_statement = false
 csharp_space_around_binary_operators = before_and_after
 csharp_space_around_declaration_statements = false
-csharp_space_before_colon_in_inheritance_clause = true
-csharp_space_before_comma = false
-csharp_space_before_dot = false
-csharp_space_before_open_square_brackets = false
-csharp_space_before_semicolon_in_for_statement = false
-csharp_space_between_empty_square_brackets = false
 csharp_space_between_method_call_empty_parameter_list_parentheses = false
 csharp_space_between_method_call_name_and_opening_parenthesis = false
 csharp_space_between_method_call_parameter_list_parentheses = false
@@ -351,52 +355,159 @@ csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
 csharp_space_between_method_declaration_name_and_open_parenthesis = false
 csharp_space_between_method_declaration_parameter_list_parentheses = false
 csharp_space_between_parentheses = false
+csharp_space_before_open_square_brackets = false
 csharp_space_between_square_brackets = false
+csharp_space_between_empty_square_brackets = false
 
 # Wrapping preferences
 csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
 
-######################
-#### Naming rules ####
-######################
+################################################################################
+####                              Naming                                    ####
+################################################################################
+# NOTE: All naming options have rule ID IDE1006 and title 'Naming rule violation'
+# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/naming-rules
 
+##########################################
+# Styles
+##########################################
+# Style specifications: 'capitalization' (required), required_prefix (optional), required_suffix (optional), word_separator (optional).
+
+# camel_case_style - Define the camelCase style
+dotnet_naming_style.camel_case_style.capitalization = camel_case
+# pascal_case_style - Define the PascalCase style
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+# all_upper_case_style - Define the UPPER_CASE style
+dotnet_naming_style.all_upper_case_style.capitalization = all_upper
+dotnet_naming_style.all_upper_case_style.word_separator = _
+# static_field_style - Define the s_staticField style
+dotnet_naming_style.static_field_style.capitalization = camel_case
+dotnet_naming_style.static_field_style.required_prefix = s_
+# instance_field_style - Define the _instanceField style
+dotnet_naming_style.instance_field_style.capitalization = camel_case
+dotnet_naming_style.instance_field_style.required_prefix = _
+# interface_style - Interfaces must be PascalCase and the first character of an interface must be an 'I'
+dotnet_naming_style.interface_style.capitalization = pascal_case
+dotnet_naming_style.interface_style.required_prefix = I
+# type_parameter_style - Generic Type Parameters must be PascalCase and the first character must be a 'T'
+dotnet_naming_style.type_parameter_style.capitalization = pascal_case
+dotnet_naming_style.type_parameter_style.required_prefix = T
+
+##########################################
+# Symbols
+##########################################
+# Symbol specifications: 'applicable_accessibilities' (required), 'applicable_kinds' (required) and 'required_modifiers' (optional).
+# TODO: applicable_kinds is not required
+
+# Non-private static fields
+dotnet_naming_symbols.non_private_static_fields.applicable_accessibilities = public, protected, internal, protected_internal, private_protected
+dotnet_naming_symbols.non_private_static_fields.applicable_kinds = field
+dotnet_naming_symbols.non_private_static_fields.required_modifiers = static
+
+# Non-private readonly fields
+dotnet_naming_symbols.non_private_readonly_fields.applicable_accessibilities = public, protected, internal, protected_internal, private_protected
+dotnet_naming_symbols.non_private_readonly_fields.applicable_kinds = field
+dotnet_naming_symbols.non_private_readonly_fields.required_modifiers = readonly
+
+# private constants
+dotnet_naming_symbols.private_constants.applicable_accessibilities = private
+dotnet_naming_symbols.private_constants.applicable_kinds = field, local
+dotnet_naming_symbols.private_constants.required_modifiers = const
+
+# Non-private constants
+dotnet_naming_symbols.non_private_constants.applicable_accessibilities = public, internal, protected_internal, protected, private_protected
+dotnet_naming_symbols.non_private_constants.applicable_kinds = field, local
+dotnet_naming_symbols.non_private_constants.required_modifiers = const
+
+# private static fields
+dotnet_naming_symbols.private_static_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_static_fields.applicable_kinds = field
+dotnet_naming_symbols.private_static_fields.required_modifiers = static
+
+# private instance fields
+dotnet_naming_symbols.private_instance_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_instance_fields.applicable_kinds = field
+
+# local variables and parameters
+dotnet_naming_symbols.locals_and_parameters.applicable_kinds = parameter, local
+
+# local functions
+dotnet_naming_symbols.local_functions.applicable_kinds = local_function
+
+# interfaces
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+
+# type parameters
+dotnet_naming_symbols.type_parameters.applicable_kinds = type_parameter
+
+# universal (catch all) symbols
+dotnet_naming_symbols.all_members.applicable_kinds = *
+
+##########################################
 # Naming rules
+##########################################
+# Naming rule specification: symbols (required), style (required), severity (required)
 
-dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
-dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
-dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i
+# TODO: const => static
 
-dotnet_naming_rule.types_should_be_pascal_case.severity = suggestion
-dotnet_naming_rule.types_should_be_pascal_case.symbols = types
-dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
+# TODO: Haven't though about if we need any special rules for
+#       Plain Old structs (where public fields are PascalCase)
+#       readonly structs
 
-dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
-dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
-dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
+# Non-private static fields are PascalCase
+dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.symbols = non_private_static_fields
+dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.style = camel_case_style
+dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.severity = warning
 
-# Symbol specifications
+# Non-private readonly fields are PascalCase
+dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.symbols = non_private_readonly_fields
+dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.style = camel_case_style
+dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.severity = warning
 
-dotnet_naming_symbols.interface.applicable_kinds = interface
-dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
-dotnet_naming_symbols.interface.required_modifiers =
+# Non-private constants are PascalCase
+dotnet_naming_rule.non_private_constants_should_be_pascal_case.symbols = non_private_constants
+dotnet_naming_rule.non_private_constants_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.non_private_constants_should_be_pascal_case.severity = warning
 
-dotnet_naming_symbols.types.applicable_kinds = class, struct, interface, enum
-dotnet_naming_symbols.types.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
-dotnet_naming_symbols.types.required_modifiers =
+# Private constants are UPPER_CASE
+dotnet_naming_rule.private_constants_should_be_all_upper_case.symbols = private_constants
+dotnet_naming_rule.private_constants_should_be_all_upper_case.style = all_upper_case_style
+dotnet_naming_rule.private_constants_should_be_all_upper_case.severity = warning
 
-dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, method
-dotnet_naming_symbols.non_field_members.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
-dotnet_naming_symbols.non_field_members.required_modifiers =
+# Private static fields are camelCase and start with s_
+dotnet_naming_rule.static_fields_should_be_camel_case.symbols = private_static_fields
+dotnet_naming_rule.static_fields_should_be_camel_case.style = static_field_style
+dotnet_naming_rule.static_fields_should_be_camel_case.severity = warning
 
-# Naming styles
+# Private instance (TODO: and maybe protected) fields are camelCase and start with _
+dotnet_naming_rule.instance_fields_should_be_camel_case.symbols = private_instance_fields
+dotnet_naming_rule.instance_fields_should_be_camel_case.style = instance_field_style
+dotnet_naming_rule.instance_fields_should_be_camel_case.severity = warning
 
-dotnet_naming_style.pascal_case.required_prefix =
-dotnet_naming_style.pascal_case.required_suffix =
-dotnet_naming_style.pascal_case.word_separator =
-dotnet_naming_style.pascal_case.capitalization = pascal_case
+# Locals and parameters are camelCase
+dotnet_naming_rule.locals_should_be_camel_case.symbols = locals_and_parameters
+dotnet_naming_rule.locals_should_be_camel_case.style = camel_case_style
+dotnet_naming_rule.locals_should_be_camel_case.severity = warning
 
-dotnet_naming_style.begins_with_i.required_prefix = I
-dotnet_naming_style.begins_with_i.required_suffix =
-dotnet_naming_style.begins_with_i.word_separator =
-dotnet_naming_style.begins_with_i.capitalization = pascal_case
+# Local functions are PascalCase
+dotnet_naming_rule.local_functions_should_be_pascal_case.symbols = local_functions
+dotnet_naming_rule.local_functions_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.local_functions_should_be_pascal_case.severity = warning
+
+# Interfaces use PascalCase and are prefixed with uppercase 'I'
+# https://docs.microsoft.com/dotnet/standard/design-guidelines/names-of-classes-structs-and-interfaces
+dotnet_naming_rule.interface_rule.symbols = interfaces
+dotnet_naming_rule.interface_rule.style = interface_style
+dotnet_naming_rule.interface_rule.severity = warning
+
+# TODO: Don't know if Some<T, U> should be forbidden?
+# Generics Type Parameters use PascalCase and are prefixed with uppercase 'T'
+dotnet_naming_rule.type_parameter_rule.symbols = type_parameters
+dotnet_naming_rule.type_parameter_rule.style = type_parameter_style
+dotnet_naming_rule.type_parameter_rule.severity = warning
+
+# By default we fallback to PascalCase
+dotnet_naming_rule.members_should_be_pascal_case.symbols = all_members
+dotnet_naming_rule.members_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.members_should_be_pascal_case.severity = warning

@@ -276,9 +276,12 @@ namespace SourceCodeAnalysisSpike
     internal struct MyStruct
 #pragma warning restore IDE0064 // Make readonly fields writable
     {
-        public readonly int Value;
+        public int Value;
 
-        public MyStruct(int value) => Value = value;
+        public MyStruct(int value)
+        {
+            Value = value;
+        }
 
         public void TestAgain() // TODO: Name Violation
         {
@@ -327,6 +330,9 @@ namespace SourceCodeAnalysisSpike
 
         public T? Name { get; }
 
-        public GenericSomething(T? name) => Name = name;
+        public GenericSomething(T? name)
+        {
+            Name = name;
+        }
     }
 }

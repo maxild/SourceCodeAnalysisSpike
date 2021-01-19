@@ -44,9 +44,9 @@ indent_size = 2
 # csharp_new_line_before_else does not support severity.
 
 # Sort System.* using directives alphabetically, and place them before other using directives.
-dotnet_sort_system_directives_first = true
+;dotnet_sort_system_directives_first = true
 # Do not place a blank line between using directive groups.
-dotnet_separate_import_directive_groups = false
+;dotnet_separate_import_directive_groups = false
 
 ## Newline options (https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/formatting-rules#new-line-options)
 # braces on a *new line* for the all code elements ("Allman" style).
@@ -205,19 +205,19 @@ dotnet_style_predefined_type_for_member_access                                = 
 
 ## expression-level preferences
 # Suggest more modern language features when available
-dotnet_style_object_initializer                                               = true:suggestion
-dotnet_style_collection_initializer                                           = true:suggestion
-dotnet_style_explicit_tuple_names = true:suggestion
-dotnet_style_prefer_inferred_tuple_names = true:suggestion
-dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
-dotnet_style_prefer_auto_properties = true:suggestion
-dotnet_style_prefer_conditional_expression_over_assignment = true:suggestion
-dotnet_style_prefer_conditional_expression_over_return = true:suggestion
-dotnet_style_prefer_compound_assignment = true:suggestion
-dotnet_style_prefer_simplified_interpolation = true:suggestion
-dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
-dotnet_style_coalesce_expression                                              = true:suggestion
-dotnet_style_null_propagation                                                 = true:suggestion
+;dotnet_style_object_initializer                                               = true:suggestion
+;dotnet_style_collection_initializer                                           = true:suggestion
+;dotnet_style_explicit_tuple_names = true:suggestion
+;dotnet_style_prefer_inferred_tuple_names = true:suggestion
+;dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
+;dotnet_style_prefer_auto_properties = true:suggestion
+;dotnet_style_prefer_conditional_expression_over_assignment = true:suggestion
+;dotnet_style_prefer_conditional_expression_over_return = true:suggestion
+;dotnet_style_prefer_compound_assignment = true:suggestion
+;dotnet_style_prefer_simplified_interpolation = true:suggestion
+;dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
+;dotnet_style_coalesce_expression                                              = true:suggestion
+;dotnet_style_null_propagation                                                 = true:suggestion
 
 ## Modifier preferences
 # IDE0044: Add readonly modifier
@@ -228,10 +228,10 @@ dotnet_style_readonly_field = true:suggestion
 # IDE0048: Add parentheses for clarity
 # NOTE: Cannot be enforced on build
 # TODO: I am a bit unsure if 'never_if_unnecessary' is better
-dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:suggestion
-dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
-dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
-dotnet_style_parentheses_in_other_operators = always_for_clarity:suggestion
+;dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:suggestion
+;dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
+;dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
+;dotnet_style_parentheses_in_other_operators = always_for_clarity:suggestion
 
 ## Null-checking preferences
 # IDE0029: Use coalesce expression (non-nullable types)
