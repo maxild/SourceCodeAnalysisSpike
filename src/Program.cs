@@ -3,8 +3,6 @@ using SourceCodeAnalysisSpike.SubSystem;
 using System.Collections.Generic;
 using System;
 using System.Globalization;
-// IDE0005: Using directive is unnecessary.
-//using System.Threading;
 
 namespace SourceCodeAnalysisSpike
 {

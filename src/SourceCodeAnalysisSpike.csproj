@@ -7,9 +7,12 @@
     <Nullable>enable</Nullable>
     <!-- Turn on `/features:strict` ("strict mode" in roslyn) -->
     <Feature>strict</Feature>
+    <!-- Compiler does not report unused imports when XML doc comments are disabled (https://github.com/dotnet/roslyn/issues/41640) -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- .NET code style analysis is disabled, by default -->
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(MoWarn);CS1591</NoWarn>
   </PropertyGroup>
 
   <!-- <ItemGroup>
