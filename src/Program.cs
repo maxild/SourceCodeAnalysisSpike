@@ -2,6 +2,7 @@
 using SourceCodeAnalysisSpike.SubSystem;
 using System.Collections.Generic;
 using System;
+using System.Globalization;
 // IDE0005: Using directive is unnecessary.
 //using System.Threading;
 
@@ -60,7 +61,7 @@ namespace SourceCodeAnalysisSpike
             _ = !(pt3 is Point);
 #pragma warning restore IDE0078 // Use pattern matching
 
-            Console.WriteLine(int.Parse("3"));
+            Console.WriteLine(int.Parse("3", CultureInfo.InvariantCulture));
 
             // IDE0004: remove unnecesary cast should not be enforved on build. but it is here??? remove suppresion to see...
 #pragma warning disable IDE0004 // Remove Unnecessary Cast
@@ -106,7 +107,7 @@ namespace SourceCodeAnalysisSpike
 
             var sb = new StringBuilder();
 #pragma warning disable IDE0082 // 'typeof' can be converted  to 'nameof'
-            _ = sb.AppendFormat("Hello {0}", typeof(int).Name);
+            _ = sb.AppendFormat(CultureInfo.InvariantCulture, "Hello {0}", typeof(int).Name);
 #pragma warning restore IDE0082 // 'typeof' can be converted  to 'nameof'
             Console.WriteLine(sb);
 
@@ -238,8 +239,7 @@ namespace SourceCodeAnalysisSpike
 
     internal class C : B
     {
-        // TODO: naming
-        private readonly int j = 0;
+        public static int Value => 0;
 
 #pragma warning disable IDE0070 // Use 'System.HashCode'
         public override int GetHashCode()
@@ -248,7 +248,7 @@ namespace SourceCodeAnalysisSpike
             // IDE0070: GetHashCode can be simplified.
             var hashCode = 339610899;
             hashCode = (hashCode * -1521134295) + base.GetHashCode();
-            hashCode = (hashCode * -1521134295) + j.GetHashCode();
+            hashCode = (hashCode * -1521134295) + Value.GetHashCode();
             return hashCode;
         }
 
